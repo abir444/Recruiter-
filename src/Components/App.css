@@ -1,0 +1,84 @@
+*{
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+  list-style: none;
+  box-sizing: border-box;
+}
+
+body{
+  font-family: monospace;
+  text-decoration: none;
+  background-image: url("https://s10006.cdn.ncms.io/d6/wp-content/uploads/2018/06/careers-hero-full-height-min.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover ;
+}
+
+nav{
+  background: #0082e6;
+  height: 80px;
+  width: 100%;
+}
+
+label.logo{
+  color: white;
+  font-size: 35px;
+  line-height: 80px;
+  padding: 0 100px;
+  font-weight: bold;
+}
+
+nav ul{
+  float: right;
+  margin-right: 20px;
+  
+  
+}
+nav ul li{
+  display: inline-block;
+  line-height: 80px;
+  margin: 0 5px;
+
+}
+
+ nav ul li a{
+  color: white;
+  font-size: 17px;
+  padding: 7px 13px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  
+}  
+
+
+a.active,a:hover{
+  background: #1b9bff;
+  transition: .5s;
+}
+
+.container{
+background:transparent;
+/* padding-top: 200px;  */
+padding: 47px 193px;
+position: relative;
+height: 800px;
+}
+.help{
+  float: right;
+  max-width: 6px;
+  max-height: 10px;
+  position: relative;
+  padding-right: 54px;
+  font-size: 12px;
+}
+.hr{
+  padding: 3px;
+}
+
+.form{
+  padding-top: 40px;
+  padding-left: 300px;
+  
+}
