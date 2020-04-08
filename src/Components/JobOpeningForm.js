@@ -14,31 +14,68 @@ import {Form,Container , Row ,Button, Col,Badge,Popover,OverlayTrigger} from "re
 // };
 
 
-const popover = (
-    <Popover id="popover-basic">
-      <Popover.Title as="h1">Fill Up the form</Popover.Title>
-      <Popover.Content>
-        Please fill up the <strong>Current</strong> openings. Always double check the deadlines
-      </Popover.Content>
-    </Popover>
-  );
-const Example = () => (
-    <OverlayTrigger trigger="click" placement="left" overlay={popover}>
-      <Badge variant="primary">Need help?</Badge>
-    </OverlayTrigger>
-  );
-// Submit = e => {
-//   e.preventdefault()
-// }
+
 
 
 
 // main component start from here
+const popover = (
+  <Popover id="popover-basic">
+    <Popover.Title as="h1">Fill Up the form</Popover.Title>
+    <Popover.Content>
+      Please fill up the <strong>Current</strong> openings. Always double check the deadlines
+    </Popover.Content>
+  </Popover>
+);
+const Example = () => (
+  <OverlayTrigger trigger="click" placement="left" overlay={popover}>
+    <Badge variant="primary">Need help?</Badge>
+  </OverlayTrigger>
+);
+// Submit = e => {
+//   e.preventDefault();
+// }
 
+export default class JobOpeningForm extends Component {
+  ////
+  state = {
+    forJobTitl:        "",
+    positionOverview:  "",
+    location:          "",
+    loveWorkingHere:   "",   
+  };
 
-const jobForm = (props) => (
+componentDidMount(){
+  firebase
+  .database()
+  .ref("profile")
+  .push({
+    forJobTitl:        "sample title",
+    positionOverview:  "sample position",
+    location:          "sample location",
+    loveWorkingHere:   "sample detail"   
+    
 
-  
+  })
+}
+Submit = e => {
+  e.preventDefault();
+
+  firebase
+  .database()
+  .ref("profile")
+  .push({
+    forJobTitl:        this.state.forJobTitl,
+    positionOverview:  this.state.positionOverview,
+    location:          this.state.location,
+    loveWorkingHere:   this.state.loveWorkingHere   
+
+  });
+};
+  /////
+
+  render(){
+    return (
 <div className="container">
 <Badge variant="primary">Post a new Position</Badge>{' '}
 <div className="help">
@@ -50,7 +87,7 @@ const jobForm = (props) => (
 <Form.Row>
 <Form.Group as={Row} controlId="forJobTitl">
       <Form.Label><strong>Job Title</strong></Form.Label>
-      <Form.Control onChange={e => this.setState({forJobTitl:e.target.value})}/>
+      <Form.Control onChange={e =>this.setState ({forJobTitl:e.target.value})}/>
     </Form.Group>
     </Form.Row>
     
@@ -86,5 +123,5 @@ const jobForm = (props) => (
 
 </div>
 )
-
-export default jobForm;
+    }
+  }
