@@ -4,49 +4,16 @@ import '../config';
 import * as firebase from 'firebase';
 import JobOpeningForm from './JobOpeningForm';
 import NavBar from './NavBar';
+import { BrowserRouter, Route, Link } from "react-router-dom";
 
 
 import {Form,Container , Row , Col} from "react-bootstrap";
+import Home from './Home';
 
 export default class App extends Component{
   constructor(props){
     super(props);
   }
-
-//   state = {
-//     forJobTitl:        "",
-//     positionOverview:  "",
-//     location:          "",
-//     loveWorkingHere:   ""   
-//   }
-
-// componentDidMount(){
-//   firebase
-//   .database()
-//   .ref("profile")
-//   .push({
-//     forJobTitl:        "",
-//     positionOverview:  "",
-//     location:          "",
-//     loveWorkingHere:   ""   
-    
-
-//   })
-// }
-// Submit = e => {
-//   e.preventdefault();
-
-//   firebase
-//   .database()
-//   .ref("profile")
-//   .push({
-//     forJobTitl:        this.state.forJobTitl,
-//     positionOverview:  this.state.positionOverview,
-//     location:          this.state.location,
-//     loveWorkingHere:   this.state.loveWorkingHere   
-
-//   })
-// }
 
   render(){
     return (
@@ -54,7 +21,8 @@ export default class App extends Component{
   <div>
    <NavBar />
     <div>
-    <JobOpeningForm triggerJobOpeningForm={this.Submit}/>
+      <Home />
+    {/* <JobOpeningForm triggerJobOpeningForm={this.Submit}/> it is working */}
     </div>
   </div>
       

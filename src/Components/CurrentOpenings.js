@@ -37,7 +37,7 @@ const Example = () => (
 //   e.preventDefault();
 // }
 
-export default class JobOpeningForm extends Component {
+export default class CurrentOpenings extends Component {
   ////
   state = {
     forJobTitl:        "",
@@ -78,7 +78,9 @@ Submit = e => {
   render(){
     return (
 <div className="container">
-<Badge variant="primary">Post a new Position</Badge>{' '}
+
+    <p>this is  a new page</p>
+{/* <Badge variant="primary">Post a new Position</Badge>{' '}
 <div className="help">
 <Example />
 </div>
@@ -120,7 +122,7 @@ Submit = e => {
     <Button variant="primary" type="submit">
           Submit
         </Button>
-</Form>
+</Form> */}
 
 </div>
 )
