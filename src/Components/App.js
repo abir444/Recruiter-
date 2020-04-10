@@ -3,8 +3,9 @@ import './App.css';
 import '../config';
 import * as firebase from 'firebase';
 import JobOpeningForm from './JobOpeningForm';
+import CurrentOpenings from './CurrentOpenings';
 import NavBar from './NavBar';
-import { BrowserRouter, Route, Link } from "react-router-dom";
+import { BrowseRouter, Route } from "react-router-dom";
 
 
 import {Form,Container , Row , Col} from "react-bootstrap";
@@ -17,6 +18,8 @@ export default class App extends Component{
 
   render(){
     return (
+
+
 
   <div>
    <NavBar />

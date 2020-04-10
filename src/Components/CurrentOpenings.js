@@ -77,6 +77,9 @@ Submit = e => {
 
   render(){
     return (
+      <div>
+         <NavBar />
+      
 <div className="container">
 
     <p>this is  a new page</p>
@@ -124,6 +127,7 @@ Submit = e => {
         </Button>
 </Form> */}
 
+</div>
 </div>
 )
     }
