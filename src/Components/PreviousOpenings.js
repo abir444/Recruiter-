@@ -6,19 +6,6 @@ import {Form,Container , Row ,Button, Col,Badge,Popover,OverlayTrigger} from "re
 import NavBar from './NavBar';
 import { BrowserRouter, Route, Link } from "react-router-dom";
 
-// declaring state
-// state = {
-//   forJobTitl:        "",
-//   positionOverview:  "",
-//   location:          "",
-//   loveWorkingHere:   ""   
-// };
-
-
-
-
-
-
 // main component start from here
 const popover = (
   <Popover id="popover-basic">

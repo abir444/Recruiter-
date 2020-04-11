@@ -13,12 +13,6 @@ import { BrowserRouter, Route, Link } from "react-router-dom";
 //   location:          "",
 //   loveWorkingHere:   ""   
 // };
-
-
-
-
-
-
 // main component start from here
 const popover = (
   <Popover id="popover-basic">
@@ -33,9 +27,6 @@ const Example = () => (
     <Badge variant="primary">Need help?</Badge>
   </OverlayTrigger>
 );
-// Submit = e => {
-//   e.preventDefault();
-// }
 
 export default class JobOpeningForm extends Component {
   ////
@@ -44,24 +35,34 @@ export default class JobOpeningForm extends Component {
     positionOverview:  "",
     location:          "",
     loveWorkingHere:   "",   
+    data           :   []
   };
 
-componentDidMount(){
-  firebase
-  .database()
-  .ref("profile")
-  .push({
-    forJobTitl:        "sample title",
-    positionOverview:  "sample position",
-    location:          "sample location",
-    loveWorkingHere:   "sample detail"   
-    
 
-  })
-}
+  // firebase
+  // .database()
+  // .ref("profile")
+  // .push({
+  //   forJobTitl:        "sample title",
+  //   positionOverview:  "sample position",
+  //   location:          "sample location",
+  //   loveWorkingHere:   "sample detail"   
+  componentDidMount(){
+    firebase
+    .database()
+    .ref("profile")
+   .once("value")
+    .then(snapShot => {
+      snapShot.forEach(item => {
+        this.state.data.push({
+          id: item.key,...item.val()
+        });
+      })
+    })
+  }
 Submit = e => {
+  
   e.preventDefault();
-
   firebase
   .database()
   .ref("profile")
@@ -82,12 +83,12 @@ Submit = e => {
     
      
 <div className="container">
-
+     
 <Badge variant="primary">Post a new Position</Badge>{' '}
 <div className="help">
 <Example />
 </div>
-
+{console.log(this.state)}
 <hr/>
 <Form className="form" onSubmit={(e) =>this.Submit(e) }>
 <Form.Row>
@@ -125,6 +126,7 @@ Submit = e => {
     <Button variant="primary" type="submit">
           Submit
         </Button>
+        {console.log(this.state.data)}
 </Form>
 </div>
 </div>
