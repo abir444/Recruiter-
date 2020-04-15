@@ -35,6 +35,7 @@ export default class JobOpeningForm extends Component {
     positionOverview:  "",
     location:          "",
     loveWorkingHere:   "",   
+    deadLine  :        "",
     data           :   []
   };
 
@@ -70,7 +71,8 @@ Submit = e => {
     forJobTitl:        this.state.forJobTitl,
     positionOverview:  this.state.positionOverview,
     location:          this.state.location,
-    loveWorkingHere:   this.state.loveWorkingHere   
+    loveWorkingHere:   this.state.loveWorkingHere,
+    deadLine    :      this.state.deadLine   
 
   });
 };
@@ -123,10 +125,20 @@ Submit = e => {
     </Form.Group>
 
     </Form.Row>
+
+    <Form.Row>
+<Form.Group as={Row} controlId="deadLine">
+    <Form.Label>Mention the dead line.</Form.Label>
+    <Form.Control type="date" rows="3" onChange={e => this.setState({deadLine:e.target.value})}/>
+    </Form.Group>
+
+    </Form.Row>
+    
+
     <Button variant="primary" type="submit">
           Submit
         </Button>
-        {console.log(this.state.data)}
+        {/* {console.log(this.state.data)} */}
 </Form>
 </div>
 </div>

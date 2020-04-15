@@ -19,7 +19,7 @@ export default class NavBar extends Component {
     <ul>
       <li><a href="./JobOpeningForm" className="active">New Openings</a></li>
       <li><a href="./CurrentOpenings">Current Openings</a></li>
-      <li><a href="./PreviousOpenings">Previous Openings</a></li>
+      <li><a href="./PreviewApplicants">Preview Applicants</a></li>
       
     </ul>
   </nav>

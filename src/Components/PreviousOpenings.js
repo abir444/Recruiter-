@@ -24,42 +24,27 @@ const Example = () => (
 //   e.preventDefault();
 // }
 
-export default class PreviousOpenings extends Component {
+export default class PreviewApplicants extends Component {
   ////
-  state = {
-    forJobTitl:        "",
-    positionOverview:  "",
-    location:          "",
-    loveWorkingHere:   "",   
-  };
+  // state = {
+  //   forJobTitl:        "",
+  //   positionOverview:  "",
+  //   location:          "",
+  //   loveWorkingHere:   "",   
+  // };
 
-componentDidMount(){
-  firebase
-  .database()
-  .ref("profile")
-  .push({
-    forJobTitl:        "sample title",
-    positionOverview:  "sample position",
-    location:          "sample location",
-    loveWorkingHere:   "sample detail"   
-    
+  // componentDidMount(){
+  //   firebase
+  //   .database()
+  //   .ref("profile")
+  //   .once("value")
+  //   .then(snapShot => {
+  //     snapShot.forEach(item => {
+  //       this.state.data.push(item.val())
+  //     })
+  //   });
+  // };
 
-  })
-}
-Submit = e => {
-  e.preventDefault();
-
-  firebase
-  .database()
-  .ref("profile")
-  .push({
-    forJobTitl:        this.state.forJobTitl,
-    positionOverview:  this.state.positionOverview,
-    location:          this.state.location,
-    loveWorkingHere:   this.state.loveWorkingHere   
-
-  });
-};
   /////
 
   render(){
@@ -69,7 +54,7 @@ Submit = e => {
       
 <div className="container">
 
-    <p>this is  a previous page</p>
+    <p>It is not functioning right now</p>
 {/* <Badge variant="primary">Post a new Position</Badge>{' '}
 <div className="help">
 <Example />
