@@ -8,7 +8,10 @@ import JobOpeningForm from './Components/JobOpeningForm';
 import NavBar from './Components/NavBar';
 import CurrentOpenings from './Components/CurrentOpenings';
 import PreviousOpenings from './Components/PreviousOpenings';
+import Career from './Components/Career';
 import {  Route, Link,Router, BrowserRouter } from "react-router-dom";
+import Login from './Components/Login';
+import Home from './Components/Home';
 
 
 
@@ -26,7 +29,7 @@ const routing = (
           <Link to="/CurrentOpenings">Contact</Link>
         </li>
       </ul> */}
-      <Route exact path="/" component={App} />
+      <Route exact path="/" component={Career} />
       <Route path="/JobOpeningForm" component={JobOpeningForm} />
       <Route path="/CurrentOpenings" component={CurrentOpenings} />
       <Route path="/PreviousOpenings" component={PreviousOpenings} />

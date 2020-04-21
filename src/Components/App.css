@@ -88,6 +88,9 @@ height: 800px;
   
 }
 
-/* .DeadLine{
-  float: right;
-} */
+.container2{
+  padding: 20px;
+  height: 600px;
+  variant:"success"
+  
+}

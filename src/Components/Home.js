@@ -8,13 +8,26 @@ import { BrowserRouter, Route, Link } from "react-router-dom";
 
 export default class Home extends Component {
 
-  render(){
+  constructor(props) {
+    super(props);
+    this.logout = this.logout.bind(this);
+}
+
+
+logout() {
+    firebase.auth().signOut();
+}
+
+render() {
     return (
-
-<div className="container">
-<h3>THis is Home page....it is under construction</h3>
-</div>
-
-)
-    }
-    }
+      <div className="col-md-6">
+        <h1>This is home page</h1>
+        <button onClick = {this.logout}>Logout</button>
+      </div>
+    )
+           
+      
+          }
+      
+      }
+      
