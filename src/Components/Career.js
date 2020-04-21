@@ -38,12 +38,33 @@ export default class Career extends Component {
 //   }
 // }
 
-handleUpload = e => {
+// handleUpload = e => {
 
   
 
+//   const {image} = this.state;
+//   const uploadtask= firebase.storage().ref(`${images}/${image.name}`).put(image);
+//   uploadtask.on('state_changed', 
+//   (snapShot) =>{
+
+//   } ,
+//   (error) =>{
+//       console.log(error);
+//   },
+//   ()=>{
+//       firebase.storage.ref('images').child(image.name).getDownloadURL().then(url =>{
+//         console.log(url);
+//         this.setState({url});
+        
+        
+//   })
+//   });
+// }
+
+Submit = e => {
+
   const {image} = this.state;
-  const uploadtask= firebase.storage.ref(`images/${image.name}`).put(image);
+  const uploadtask= firebase.storage().ref(`${image}/${image.name}`).put(image);
   uploadtask.on('state_changed', 
   (snapShot) =>{
 
@@ -58,10 +79,9 @@ handleUpload = e => {
         
         
   })
-  });
-}
+  })
 
-Submit = e => {
+
 
   e.preventDefault();
  
