@@ -24,62 +24,75 @@ export default class Career extends Component {
     positionOverview:  "",
     location:          "",
     loveWorkingHere:   "",  
-    image : [],
+    files : null,
     url: '',
   }
   //  this.handleChange = this.handleChange.bind(this);
   //  this.handleUpload = this.handleUpload.bind(this);
 }
 
-// handleChange = e =>{
-//   if(e.target.files[0]){
-//     const image = e.target.files[0];
-    
-//   }
-// }
-
 // handleUpload = e => {
-
-  
-
-//   const {image} = this.state;
-//   const uploadtask= firebase.storage().ref(`${images}/${image.name}`).put(image);
-//   uploadtask.on('state_changed', 
+//   const image = this.state.image;
+//   console.log("handlellll")
+//   const uploadtask= firebase.storage().ref(`${image}/${image.name}`);
+//   var task = uploadtask.put(image);
+//   task.on('state_changed', 
 //   (snapShot) =>{
-
+//     // var percentage = (snapShot.bytesTransferred / snapShot.totalBytes) * 100;
+//     // uploader.value = percentage;
 //   } ,
 //   (error) =>{
 //       console.log(error);
 //   },
 //   ()=>{
-//       firebase.storage.ref('images').child(image.name).getDownloadURL().then(url =>{
-//         console.log(url);
-//         this.setState({url});
+//   //     firebase.storage.ref('images').child(image.name).getDownloadURL().then(url =>{
+//   //       console.log(url+"sasdasdasdasasdasd");
+//   //       this.setState({url});
         
         
-//   })
-//   });
+//   // }
+//   // )
+//   }
+//   );
 // }
+
+handleChange = (files) =>{
+this.setState({
+  files:files
+})
+}
+
+handleSave = () => {
+  let bucketName = "images"
+  let file = this.state.files[0]
+  let storageRef = firebase.storage().ref(`${bucketName}/${file.name}`)
+  let uploadTask = storageRef.put(file)
+  uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+    ()=>{
+      let downLoadUrl = uploadTask.snapshot.downloadURL
+    })
+}
+
 
 Submit = e => {
 
-  const {image} = this.state;
-  const uploadtask= firebase.storage().ref(`${image}/${image.name}`).put(image);
-  uploadtask.on('state_changed', 
-  (snapShot) =>{
+  // const {image} = this.state;
+  // const uploadtask= firebase.storage().ref(`${image}/${image.name}`).put(image);
+  // uploadtask.on('state_changed', 
+  // (snapShot) =>{
 
-  } ,
-  (error) =>{
-      console.log(error);
-  },
-  ()=>{
-      firebase.storage.ref('images').child(image.name).getDownloadURL().then(url =>{
-        console.log(url);
-        this.setState({url});
+  // } ,
+  // (error) =>{
+  //     console.log(error);
+  // },
+  // ()=>{
+  //     firebase.storage.ref('images').child(image.name).getDownloadURL().then(url =>{
+  //       console.log(url);
+  //       this.setState({url});
         
         
-  })
-  })
+  // })
+  // })
 
 
 
@@ -93,7 +106,6 @@ Submit = e => {
     resumeFor:        this.state.resumeFor,
     applicantName:  this.state.applicantName,
     coverLetter:   this.state.coverLetter,
-    image      :    this.state.image,
     
     // uploadedCV:          this.state.uploadedCV    
 
@@ -168,7 +180,7 @@ componentDidMount(){
 <div className="container2" >
 <Card.Header>
 <Alert variant="success">Submit Your Rsume!</Alert>
-<Form className="form" onSubmit={(e) =>this.handleUpload(e) }>
+<Form className="form" onSubmit={(e) =>this.Submit(e) }>
 <Form.Row>
 <Form.Group as={Row} controlId="forJobTitl">
       <Form.Label><strong>Name Of the position</strong></Form.Label>
@@ -192,18 +204,20 @@ componentDidMount(){
     <Form.Control as="textarea" rows="3" onChange={e => this.setState({coverLetter:e.target.value})}/>
     </Form.Group>
     </Form.Row>
-    <div class="file-upload-wrapper">
-   <input type="file" id="input-file-now-custom-2" class="file-upload"
-   onChange={e=>this.setState({image:e.target.files[0]})}
-   
-  data-height="500" />
-</div>
+
 <div className="space"></div>
     <Button variant="primary" type="submit" >
           Submit
-        </Button>{console.log(this.state.image)}
+        </Button>
 
 </Form>
+<div class="file-upload-wrapper">
+   <input type="file" id="input-file-now-custom-2" class="file-upload"
+   onChange={(e)=>{this.setState(e.target.files)} }
+   
+  data-height="500" />
+</div>
+{/* {console.log(this.state.image)} */}
 </Card.Header>
 </div>
 </div>
