@@ -9,10 +9,10 @@ import NavBar from './NavBar';
 import { BrowseRouter, Route } from "react-router-dom";
 
 
-import {Form,Container , Row , Col} from "react-bootstrap";
+import { Form, Container, Row, Col } from "react-bootstrap";
 import Home from './Home';
 
-export default class App extends Component{
+export default class App extends Component {
   constructor() {
     super();
     this.state = ({
@@ -37,23 +37,23 @@ export default class App extends Component{
       }
     });
   }
-    
 
 
-  render(){
+
+  render() {
     return (
 
 
 
-  <div>
-   <NavBar />
-    <div>
-      {/* <Home /> */}
-      {this.state.user ?  ( <Home/>) : (<Login />)}
-    {/* <JobOpeningForm triggerJobOpeningForm={this.Submit}/> it is working */}
-    </div>
-  </div>
-      
+      <div>
+        <NavBar />
+        <div>
+          {/* <Home /> */}
+          {this.state.user ? (<Home />) : (<Login />)}
+          {/* <JobOpeningForm triggerJobOpeningForm={this.Submit}/> it is working */}
+        </div>
+      </div>
+
     );
   }
 }

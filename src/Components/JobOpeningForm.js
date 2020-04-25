@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import '../config';
 import * as firebase from 'firebase';
-import {Form,Container , Row ,Button, Col,Badge,Popover,OverlayTrigger} from "react-bootstrap";
+import { Form, Container, Row, Button, Col, Badge, Popover, OverlayTrigger } from "react-bootstrap";
 import NavBar from './NavBar';
 import { BrowserRouter, Route, Link } from "react-router-dom";
 
@@ -31,12 +31,12 @@ const Example = () => (
 export default class JobOpeningForm extends Component {
   ////
   state = {
-    forJobTitl:        "",
-    positionOverview:  "",
-    location:          "",
-    loveWorkingHere:   "",   
-    deadLine  :        "",
-    data           :   []
+    forJobTitl: "",
+    positionOverview: "",
+    location: "",
+    loveWorkingHere: "",
+    deadLine: "",
+    data: []
   };
 
 
@@ -48,100 +48,100 @@ export default class JobOpeningForm extends Component {
   //   positionOverview:  "sample position",
   //   location:          "sample location",
   //   loveWorkingHere:   "sample detail"   
-  componentDidMount(){
+  componentDidMount() {
     firebase
-    .database()
-    .ref("profile")
-   .once("value")
-    .then(snapShot => {
-      snapShot.forEach(item => {
-        this.state.data.push({
-          id: item.key,...item.val()
-        });
+      .database()
+      .ref("profile")
+      .once("value")
+      .then(snapShot => {
+        snapShot.forEach(item => {
+          this.state.data.push({
+            id: item.key, ...item.val()
+          });
+        })
       })
-    })
   }
-Submit = e => {
-  
-  e.preventDefault();
-  firebase
-  .database()
-  .ref("profile")
-  .push({
-    forJobTitl:        this.state.forJobTitl,
-    positionOverview:  this.state.positionOverview,
-    location:          this.state.location,
-    loveWorkingHere:   this.state.loveWorkingHere,
-    deadLine    :      this.state.deadLine   
+  Submit = e => {
 
-  });
-};
+    e.preventDefault();
+    firebase
+      .database()
+      .ref("profile")
+      .push({
+        forJobTitl: this.state.forJobTitl,
+        positionOverview: this.state.positionOverview,
+        location: this.state.location,
+        loveWorkingHere: this.state.loveWorkingHere,
+        deadLine: this.state.deadLine
+
+      });
+  };
   /////
 
-  render(){
+  render() {
     return (
-    <div>
- <NavBar />
-    
-     
-<div className="container">
-     
-<Badge variant="primary">Post a new Position</Badge>{' '}
-<div className="help">
-<Example />
-</div>
-{console.log(this.state)}
-<hr/>
-<Form className="form" onSubmit={(e) =>this.Submit(e) }>
-<Form.Row>
-<Form.Group as={Row} controlId="forJobTitl">
-      <Form.Label><strong>Job Title</strong></Form.Label>
-      <Form.Control onChange={e =>this.setState ({forJobTitl:e.target.value})}/>
-    </Form.Group>
-    </Form.Row>
-    
-    <Form.Row>
-<Form.Group as={Row} controlId="positionOverview">
-      <Form.Label><strong>Position Overview</strong></Form.Label>
-      <Form.Control onChange={e => this.setState({positionOverview:e.target.value})}/>
-    </Form.Group>
-    </Form.Row>
-    <Form.Row>
-<Form.Group as={Row} controlId="location">
-      <Form.Label><strong>Location</strong></Form.Label>
-      <Form.Control as="select" onChange={e => this.setState({location:e.target.value})}>
-      <option>Austin</option>
-      <option>Silicon valley</option>
-      <option>Shanghai</option>
-      <option>Sea Beach</option>
-      <option>Rooftops</option>
-    </Form.Control>
-    </Form.Group>
-    </Form.Row>
-    <Form.Row>
-<Form.Group as={Row} controlId="loveWorkingHere">
-    <Form.Label>Why You’ll Love Working Here</Form.Label>
-    <Form.Control as="textarea" rows="3" onChange={e => this.setState({loveWorkingHere:e.target.value})}/>
-    </Form.Group>
+      <div>
+        <NavBar />
 
-    </Form.Row>
 
-    <Form.Row>
-<Form.Group as={Row} controlId="deadLine">
-    <Form.Label>Mention the dead line.</Form.Label>
-    <Form.Control type="date" rows="3" onChange={e => this.setState({deadLine:e.target.value})}/>
-    </Form.Group>
+        <div className="container">
 
-    </Form.Row>
-    
+          <Badge variant="primary">Post a new Position</Badge>{' '}
+          <div className="help">
+            <Example />
+          </div>
+          {console.log(this.state)}
+          <hr />
+          <Form className="form" onSubmit={(e) => this.Submit(e)}>
+            <Form.Row>
+              <Form.Group as={Row} controlId="forJobTitl">
+                <Form.Label><strong>Job Title</strong></Form.Label>
+                <Form.Control onChange={e => this.setState({ forJobTitl: e.target.value })} />
+              </Form.Group>
+            </Form.Row>
 
-    <Button variant="primary" type="submit">
-          Submit
+            <Form.Row>
+              <Form.Group as={Row} controlId="positionOverview">
+                <Form.Label><strong>Position Overview</strong></Form.Label>
+                <Form.Control onChange={e => this.setState({ positionOverview: e.target.value })} />
+              </Form.Group>
+            </Form.Row>
+            <Form.Row>
+              <Form.Group as={Row} controlId="location">
+                <Form.Label><strong>Location</strong></Form.Label>
+                <Form.Control as="select" onChange={e => this.setState({ location: e.target.value })}>
+                  <option>Austin</option>
+                  <option>Silicon valley</option>
+                  <option>Shanghai</option>
+                  <option>Sea Beach</option>
+                  <option>Rooftops</option>
+                </Form.Control>
+              </Form.Group>
+            </Form.Row>
+            <Form.Row>
+              <Form.Group as={Row} controlId="loveWorkingHere">
+                <Form.Label>Why You’ll Love Working Here</Form.Label>
+                <Form.Control as="textarea" rows="3" onChange={e => this.setState({ loveWorkingHere: e.target.value })} />
+              </Form.Group>
+
+            </Form.Row>
+
+            <Form.Row>
+              <Form.Group as={Row} controlId="deadLine">
+                <Form.Label>Mention the dead line.</Form.Label>
+                <Form.Control type="date" rows="3" onChange={e => this.setState({ deadLine: e.target.value })} />
+              </Form.Group>
+
+            </Form.Row>
+
+
+            <Button variant="primary" type="submit">
+              Submit
         </Button>
-        {/* {console.log(this.state.data)} */}
-</Form>
-</div>
-</div>
-)
-    }
+            {/* {console.log(this.state.data)} */}
+          </Form>
+        </div>
+      </div>
+    )
   }
+}

@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import JobOpeningForm from './Components/JobOpeningForm';
 import NavBar from './Components/NavBar';
 import CurrentOpenings from './Components/CurrentOpenings';
-import PreviousOpenings from './Components/PreviousOpenings';
+import PreviewApplicants from './Components/PreviewApplicants';
 import Career from './Components/Career';
 import {  Route, Link,Router, BrowserRouter } from "react-router-dom";
 import Login from './Components/Login';
@@ -32,7 +32,7 @@ const routing = (
       <Route exact path="/" component={Career} />
       <Route path="/JobOpeningForm" component={JobOpeningForm} />
       <Route path="/CurrentOpenings" component={CurrentOpenings} />
-      <Route path="/PreviousOpenings" component={PreviousOpenings} />
+      <Route path="/PreviewApplicants" component={PreviewApplicants} />
     </div>
   </BrowserRouter>
 )
