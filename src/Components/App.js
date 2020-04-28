@@ -11,6 +11,7 @@ import { BrowseRouter, Route } from "react-router-dom";
 
 import { Form, Container, Row, Col } from "react-bootstrap";
 import Home from './Home';
+import CareerNav from './CareerNav';
 
 export default class App extends Component {
   constructor() {
@@ -46,7 +47,7 @@ export default class App extends Component {
 
 
       <div>
-        <NavBar />
+        
         <div>
           {/* <Home /> */}
           {this.state.user ? (<Home />) : (<Login />)}

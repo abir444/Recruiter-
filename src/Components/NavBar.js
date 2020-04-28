@@ -32,7 +32,7 @@ export default class NavBar extends Component {
           
         });
         this.setState({data:list});
-        console.log(snapShot.child)
+        // console.log(snapShot.child)
       })} ) }
 
 // componentDidMount =  ()  => {
@@ -65,7 +65,7 @@ export default class NavBar extends Component {
       <li><a href="./JobOpeningForm" className="active">New Openings</a></li>
       <li><a href="./CurrentOpenings">Current Openings</a></li>
       <li><a href="./PreviewApplicants">Preview Applicants<strong><Badge pill variant="danger" >  {this.state.data.length}</Badge>{''}</strong></a></li>
-      
+      <li><a href="./Signup">New member !</a></li>
     </ul>
   </nav>
   </ul>

@@ -14,10 +14,10 @@ import Career from './Career';
 import CareerNav from './CareerNav';
 
 
-class Login extends Component {
+class Signup extends Component {
   constructor(props) {
     super(props);
-    this.login = this.login.bind(this);
+    // this.login = this.login.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.signup = this.signup.bind(this);
     this.state = {
@@ -30,13 +30,13 @@ class Login extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  login(e) {
-    e.preventDefault();
-    firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
-    }).catch((error) => {
-      console.log(error);
-    });
-  }
+//   login(e) {
+//     e.preventDefault();
+//     firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
+//     }).catch((error) => {
+//       console.log(error);
+//     });
+//   }
 
   signup(e) {
     e.preventDefault();
@@ -46,6 +46,14 @@ class Login extends Component {
         console.log(error);
       })
   }
+
+////////////////////
+
+
+
+/////////////
+
+
   render() {
     return (
       <div className="col-md-6">
@@ -60,11 +68,11 @@ class Login extends Component {
             <label for="exampleInputPassword1">Password</label>
             <input value={this.state.password} onChange={this.handleChange} type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
           </div>
-          <button type="submit" onClick={this.login} class="btn btn-primary">Login</button>
-          {/* <button onClick={this.signup} style={{ marginLeft: '25px' }} className="btn btn-success">Signup</button> */}
+          {/* <button type="submit" onClick={this.login} class="btn btn-primary">Login</button> */}
+          <button onClick={this.signup} style={{ marginLeft: '25px' }} className="btn btn-success">Signup</button>
         </form>
       </div>
     );
   }
 }
-export default Login;
+export default Signup;

@@ -6,6 +6,7 @@ import { Form, Card, Accordion, Alert, Modal, Tab, Nav, Row, Button, Col, Badge,
 import NavBar from './NavBar';
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import Validation from './Validation';
+import CareerNav from './CareerNav';
 
 
 
@@ -25,12 +26,13 @@ export default class Career extends Component {
       positionOverview: "",
       location: "",
       loveWorkingHere: "",
-      url: '',
+      url: "",
       files: [],
+      progress : 0
 
 
     }
-    console.log(this.state.forJobTitl);
+    // console.log(this.state.forJobTitl);
 
   }
 
@@ -54,32 +56,37 @@ export default class Career extends Component {
   
 
     // validation 
-    // validate = () =>{
-    //   let FromApplicantJobTitle = this.state.resumeFor;
-    //   let Postions = this.state.data.f;
+//     validate = () =>{
+//       let jobArray = [];
+//       let FromApplicantJobTitle = this.state.resumeFor;
+//       let Positions =this.state.data.map((val) =>{
+//         jobArray.push(Positions(val));
+//       })
+//       if(FromApplicantJobTitle == jobArray){
+//         return true;
+//       }
+// console.log(jobArray);
+//     }
 
-    //   if(FromApplicantJobTitle == Postions){
-    //     return true;
-    //   }
-    // }
 
-
-  // event for image upload
-  handleChange = (files) => {
-    this.setState({
-      files: files,
-
-    })
-  }
+  // event for image upload(not necessary)
+  // handleChange = () => {
+  //   this.setState({
+  //     files: files,
+  //     url : url
+  //   })
+  // }
 
   //submit button
   Submit = e => {
+    // this.state = {
+    //   url: "",
+    // }
 
     e.preventDefault();
     // const isValid = this.validate();
     // if (isValid == true){
-    let x = firebase;
-    x
+   firebase
       .database()
       .ref("resume")
       .push({
@@ -87,8 +94,9 @@ export default class Career extends Component {
         applicantName: this.state.applicantName,
         SkillsGithub: this.state.SkillsGithub,
         url: this.state.url
-
+      
       })
+     
     /// handle save
     let bucketName = "images";
     let image = this.state.files[0];
@@ -97,21 +105,27 @@ export default class Career extends Component {
     console.warn(uploadTask);
     uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
       (snapShot) => {
-        //progress
+        const progress = Math.round((snapShot.bytesTransferred / snapShot.totalBytes) * 100)
+        this.setState({progress});
       },
       (error) => {
         alert("Something went wrong, please try again!")
       },
       () => {
-        storageRef.child('images/' + this.state.files[0].name).getDownloadURL().then(url => {
-          console.log(url);
+        // ?????????????????
+        firebase.storage().ref(`${bucketName}`).child(image.name).getDownloadURL().then(url => {
+          this.setState({url});
+         
         })
-      }
+      } 
 
 
     )
-    
-  // } else{
+    console.log(this.state.url);
+    console.log(URL);
+  
+  // } 
+  // else{
   //   alert("Please Enter Correct Job Position!")
   // }
   // console.log(isValid);
@@ -124,7 +138,7 @@ export default class Career extends Component {
 
       <div>
 
-        <NavBar />
+        <CareerNav />
         
         <div className="container">
       
@@ -195,10 +209,14 @@ export default class Career extends Component {
                 </Form.Row>
                 <div class="file-upload-wrapper">
                 <input type="file" id="input-file-now-custom-2" class="file-upload"
-                  onChange={(e) => { this.handleChange(e.target.files) }}
+                  onChange={(e) => { this.setState({files: e.target.files}) }
+                
+                }
 
 
                   data-height="500" />
+                 <progress value={this.state.progress} max="100"/>
+                  
               </div>
 
                 <div className="space"></div>

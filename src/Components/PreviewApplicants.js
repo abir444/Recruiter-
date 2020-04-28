@@ -19,6 +19,7 @@ export default class PreviewApplicants extends Component {
     location:          "",
     loveWorkingHere:   "",  
     deadLine:          "", 
+    url :              "",
     data:              []
   };
 
@@ -106,7 +107,9 @@ componentDidMount(){
         <label><b>Skills and Github Link</b></label>
         <p>{val.SkillsGithub}</p>
         {/* show the pdf */}
-
+        {/* <div>
+          <img src={`${val.url}`}
+        </div> */}
    {/* <p>{console.log(this.state.data.length)}</p> */}
 
         </Card.Body>

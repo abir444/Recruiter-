@@ -20,9 +20,12 @@ logout() {
 
 render() {
     return (
+      <div>
+      <NavBar/>
       <div className="col-md-6">
         <h1>This is home page</h1>
         <button onClick = {this.logout}>Logout</button>
+      </div>
       </div>
     )
            
