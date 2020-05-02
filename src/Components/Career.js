@@ -7,6 +7,7 @@ import NavBar from './NavBar';
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import Validation from './Validation';
 import CareerNav from './CareerNav';
+import { wait } from '@testing-library/react';
 
 
 
@@ -33,7 +34,7 @@ export default class Career extends Component {
 
     }
     // console.log(this.state.forJobTitl);
-
+    console.log(this.state.progress)
   }
 
     //get data to the web page
@@ -79,49 +80,78 @@ export default class Career extends Component {
 
   //submit button
   Submit = e => {
+
+    
+
+
+
+
     // this.state = {
     //   url: "",
     // }
 
-    e.preventDefault();
+
     // const isValid = this.validate();
     // if (isValid == true){
-   firebase
+
+
+
+
+
+/// handle save
+let bucketName = "images";
+let image = this.state.files[0];
+let storageRef = firebase.storage().ref(`${bucketName}/${image.name}`)
+let uploadTask = storageRef.put(image);
+console.warn(uploadTask);
+uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+  (snapShot) => {
+    const progress = Math.round((snapShot.bytesTransferred / snapShot.totalBytes) * 100)
+    
+    this.setState({progress});
+  },
+  (error) => {
+    alert("Something went wrong, please try again!")
+  },
+  (push) => {
+    // ?????????????????
+    firebase.storage().ref(`${bucketName}`).child(image.name).getDownloadURL().then(url => {
+      this.setState({url});
+
+     firebase
       .database()
       .ref("resume")
-      .push({
+      .push(
+        {
         resumeFor: this.state.resumeFor,
         applicantName: this.state.applicantName,
         SkillsGithub: this.state.SkillsGithub,
         url: this.state.url
       
       })
-     
-    /// handle save
-    let bucketName = "images";
-    let image = this.state.files[0];
-    let storageRef = firebase.storage().ref(`${bucketName}/${image.name}`)
-    let uploadTask = storageRef.put(image);
-    console.warn(uploadTask);
-    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
-      (snapShot) => {
-        const progress = Math.round((snapShot.bytesTransferred / snapShot.totalBytes) * 100)
-        this.setState({progress});
-      },
-      (error) => {
-        alert("Something went wrong, please try again!")
-      },
-      () => {
-        // ?????????????????
-        firebase.storage().ref(`${bucketName}`).child(image.name).getDownloadURL().then(url => {
-          this.setState({url});
-         
-        })
-      } 
+    })
+  } 
 
 
-    )
-    console.log(this.state.url);
+)
+
+
+e.preventDefault();
+
+
+  //  firebase
+  //     .database()
+  //     .ref("resume")
+  //     .push(
+  //       {
+  //       resumeFor: this.state.resumeFor,
+  //       applicantName: this.state.applicantName,
+  //       SkillsGithub: this.state.SkillsGithub,
+  //       url: this.state.url
+      
+  //     })
+   
+    console.log(this.progress);
     console.log(URL);
   
   // } 
@@ -129,8 +159,8 @@ export default class Career extends Component {
   //   alert("Please Enter Correct Job Position!")
   // }
   // console.log(isValid);
-  }
-
+  
+}
 
 
   render() {

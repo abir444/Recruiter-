@@ -8,7 +8,7 @@ import NavBar from './NavBar';
 import { BrowseRouter, Route } from "react-router-dom";
 
 
-import { Form, Container, Row, Col } from "react-bootstrap";
+import {Form,Card,Accordion,Alert,Container ,Tab,Nav, Row ,Button, Col,Badge,Popover,OverlayTrigger} from "react-bootstrap";
 import Home from './Home';
 import Career from './Career';
 import CareerNav from './CareerNav';
@@ -46,11 +46,21 @@ class Login extends Component {
         console.log(error);
       })
   }
+
+////////////////////
+
+
+/////////////
+
+
   render() {
     return (
-      <div className="col-md-6">
+      <div className="col-md-5">
         <CareerNav/>
-        <form>
+        
+
+  <Card.Header>
+  <form>
           <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
             <input value={this.state.email} onChange={this.handleChange} type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
@@ -63,6 +73,11 @@ class Login extends Component {
           <button type="submit" onClick={this.login} class="btn btn-primary">Login</button>
           {/* <button onClick={this.signup} style={{ marginLeft: '25px' }} className="btn btn-success">Signup</button> */}
         </form>
+
+    </Card.Header>
+
+
+
       </div>
     );
   }

@@ -8,7 +8,7 @@ import NavBar from './NavBar';
 import { BrowseRouter, Route } from "react-router-dom";
 
 
-import { Form, Container, Row, Col } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import Home from './Home';
 import Career from './Career';
 import CareerNav from './CareerNav';
@@ -58,8 +58,12 @@ class Signup extends Component {
     return (
       <div className="col-md-6">
         <CareerNav/>
+        
+  <Card.Header>
         <form>
+          
           <div class="form-group">
+            
             <label for="exampleInputEmail1">Email address</label>
             <input value={this.state.email} onChange={this.handleChange} type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
@@ -71,6 +75,7 @@ class Signup extends Component {
           {/* <button type="submit" onClick={this.login} class="btn btn-primary">Login</button> */}
           <button onClick={this.signup} style={{ marginLeft: '25px' }} className="btn btn-success">Signup</button>
         </form>
+        </Card.Header>
       </div>
     );
   }

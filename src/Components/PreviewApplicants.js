@@ -70,7 +70,18 @@ componentDidMount(){
     })
   })
 }
-
+/////////////// ??????????????????????
+delete = () => {
+  firebase.database()
+  .ref("resume")
+  .once("value")
+  .then(function(snapshot) {
+    snapshot.forEach(function(id) {
+      id.ref.remove(); 
+      console.log("Removed!");
+    })
+  })
+}
 
   render(){
     return (
@@ -84,7 +95,7 @@ componentDidMount(){
 {this.state.data.map((val)=>{
    return (
    
-<div>
+<div id="val">
 
   <Accordion defaultActiveKey="0">
   <Card>
@@ -111,7 +122,11 @@ componentDidMount(){
           <img src={`${val.url}`}
         </div> */}
    {/* <p>{console.log(this.state.data.length)}</p> */}
-
+   <div className="showBio">
+    <img src={val.url || "https://via.placeholder.com/150.png/09f/fff%20C/O%20https://placeholder.com/"} alt ="Uploaded Resume" height="100" width= "100" />
+    
+   </div>
+   <Button onClick={this.delete.bind(val)} variant="danger">Danger</Button> <Button variant="info">Info</Button>{' '}
         </Card.Body>
     </Accordion.Collapse>
   </Card>
