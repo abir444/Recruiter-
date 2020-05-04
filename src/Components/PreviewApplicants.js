@@ -5,7 +5,7 @@ import * as firebase from 'firebase';
 import {Form,Card,Accordion,Alert,Container ,Tab,Nav, Row ,Button, Col,Badge,Popover,OverlayTrigger} from "react-bootstrap";
 import NavBar from './NavBar';
 import { BrowserRouter, Route, Link } from "react-router-dom";
-
+import Switch from "react-switch";
 
 // main component start from here
 
@@ -13,45 +13,25 @@ import { BrowserRouter, Route, Link } from "react-router-dom";
 
 export default class PreviewApplicants extends Component {
   ////
-  state = {
+  constructor(){
+    super();
+    this.state = {
     forJobTitl:        "",
     positionOverview:  "",
     location:          "",
     loveWorkingHere:   "",  
     deadLine:          "", 
     url :              "",
+    checked :         false,
     data:              []
   };
+this.handleCheck = this.handleCheck.bind(this);
+}
 
-// componentDidMount(){
-//   firebase
-//   .database()
-//   .ref("profile")
-//   .once("value")
-//   .then(snapShot => {
-//     snapShot.forEach(item => {
-//       this.state.data.push(item.val())
-//     })
-//   });
-// };
+handleCheck(checked){
+  this.setState({checked});
+}
 
-
-
-// Submit = e => {
-//   e.preventDefault();
-
-//   firebase
-//   .database()
-//   .ref("profile")
-//   .push({
-//     forJobTitl:        this.state.forJobTitl,
-//     positionOverview:  this.state.positionOverview,
-//     location:          this.state.location,
-//     loveWorkingHere:   this.state.loveWorkingHere,
-//     deadLine:          this.state.deadLine    
-
-//   });
-// };
 componentDidMount(){
   var list = [];
   firebase
@@ -70,48 +50,55 @@ componentDidMount(){
     })
   })
 }
+
 /////////////// ??????????????????????
-delete = () => {
-  firebase.database()
-  .ref("resume")
-  .once("value")
-  .then(function(snapshot) {
-    snapshot.forEach(function(id) {
-      id.ref.remove(); 
-      console.log("Removed!");
-    })
-  })
-}
+
+
+// }
+///////////////////////
+
+  delete = (i) => {
+    let resumeRef = firebase.database().ref('resume');
+    resumeRef.on("value",(snapshot) => {
+     snapshot.forEach((childSnapshot) => {
+      var id = childSnapshot.key.valueOf(i);
+      console.log(id);
+      // firebase.database().ref('resume').child(id).remove();
+      
+      // console.log(i);
+     });  
+    });
+  }
+
 
   render(){
-    return (
+    return (  
             
       <div>
 
          <NavBar />
 <div className="container">
     <Alert variant="success">Good day!! We have <strong><Badge pill variant="danger" >  {this.state.data.length}</Badge>{''}</strong>  Applications to process!</Alert>
+
 <div>
-{this.state.data.map((val)=>{
+{this.state.data.map((val, key)=>{
+  
    return (
    
-<div id="val">
+<div> 
 
   <Accordion defaultActiveKey="0">
   <Card>
+{console.log(key)}
     <Card.Header>
+
       <Accordion.Toggle as={Button} variant="link" eventKey="0">
       <Badge variant="info">Job Position</Badge>{' '}
-      <Badge variant="primary"> <strong className="space">{val.resumeFor}</strong></Badge>{' '}
-       {/* <strong className="space">{val.forJobTitl}</strong> */}
-       {/* <Badge variant="success" className="float-right">In Progress</Badge>{''}  */}
-     
-       {/* <p className="DeadLine">{val.deadLine}</p> */}
-
-      
+      <Badge variant="primary"> <strong className="space">{val.resumeFor}</strong></Badge>{' '}   
    
     </Accordion.Toggle>
     </Card.Header>
+    
     <Accordion.Collapse eventKey="0">
       <Card.Body>
       <h1><strong>{val.applicantName}</strong></h1>
@@ -126,18 +113,17 @@ delete = () => {
     <img src={val.url || "https://via.placeholder.com/150.png/09f/fff%20C/O%20https://placeholder.com/"} alt ="Uploaded Resume" height="100" width= "100" />
     
    </div>
-   <Button onClick={this.delete.bind(val)} variant="danger">Danger</Button> <Button variant="info">Info</Button>{' '}
+   <Button value={ key } onClick={(e) =>this.delete(`${e}`)} variant="danger">Danger</Button> <Button variant="info">Info</Button>{' '}
         </Card.Body>
+    
     </Accordion.Collapse>
   </Card>
   </Accordion>
 </div>
-      
+          
    )
 })}
 </div>
-
-{console.log(this.state.data)}
 
 </div>
 

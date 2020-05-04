@@ -14,4 +14,19 @@ var firebaseConfig = {
 
   firebase.initializeApp(firebaseConfig);
 
+  //   var database = firebase.database();
+  //   var ref = database.ref("resume");
+  // ref.on("value", gotData, errData);
+
+  // function gotData(data){
+  //   let items = data.val();
+  //   let keyss = Object.keys(items);
+  //   console.log(keyss);
+  // }
+
+  // function errData(){
+  //   console.log("error!");
+
+  // }
+
  export default firebase;

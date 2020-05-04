@@ -64,6 +64,8 @@ background:transparent;
 padding: 47px 193px;
 position: relative;
 height: 800px;
+
+
 }
 .help{
   float: right;
@@ -105,4 +107,8 @@ height: 800px;
   padding: 12px 30px;
   cursor: pointer;
   font-size: 20px;
+}
+
+.prac{
+  background-color: cadetblue;
 }
