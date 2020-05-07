@@ -98,6 +98,10 @@ height: 800px;
 
 .showBio{
   float: right;
+  text-align: center;
+  margin: auto;
+  padding: 10px;
+  
 }
 
 .btn {
@@ -112,3 +116,18 @@ height: 800px;
 .prac{
   background-color: cadetblue;
 }
+
+
+/* //////////////////// */
+.progress {
+  color: black;
+  background-color: black;
+  display: inline-block;
+  position: relative;
+  width: 40px;
+  height: 10px;
+  z-index: 99;
+
+}
+
+/* ////////////// */

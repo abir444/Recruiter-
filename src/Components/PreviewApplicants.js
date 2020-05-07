@@ -9,6 +9,19 @@ import Switch from "react-switch";
 
 // main component start from here
 
+const popover = (
+  <Popover id="popover-basic">
+    <Popover.Title as="h1">Applicant detals</Popover.Title>
+    <Popover.Content>
+      Please Process the CV of <strong>Applicant</strong> Shedule an interview if applicable
+    </Popover.Content>
+  </Popover>
+);
+const Example = () => (
+  <OverlayTrigger trigger="click" placement="left" overlay={popover}>
+    <Badge variant="primary">Need help?</Badge>
+  </OverlayTrigger>
+);
 
 
 export default class PreviewApplicants extends Component {
@@ -26,6 +39,7 @@ export default class PreviewApplicants extends Component {
     data:              []
   };
 this.handleCheck = this.handleCheck.bind(this);
+this.delete = this.delete.bind(this);
 }
 
 handleCheck(checked){
@@ -40,7 +54,6 @@ componentDidMount(){
  .once("value")
   .then(snapShot => {
     snapShot.forEach(item => {
-      var kjkj = snapShot.numChildren();
       list.push({
         id: item.key,...item.val()
         
@@ -58,16 +71,7 @@ componentDidMount(){
 ///////////////////////
 
   delete = (i) => {
-    let resumeRef = firebase.database().ref('resume');
-    resumeRef.on("value",(snapshot) => {
-     snapshot.forEach((childSnapshot) => {
-      var id = childSnapshot.key.valueOf(i);
-      console.log(id);
-      // firebase.database().ref('resume').child(id).remove();
-      
-      // console.log(i);
-     });  
-    });
+    firebase.database().ref('resume').child(i.id).remove();
   }
 
 
@@ -85,13 +89,15 @@ componentDidMount(){
   
    return (
    
-<div> 
-
+<div id = {key}> 
+{/* {console.log(id)} */}
   <Accordion defaultActiveKey="0">
   <Card>
 {console.log(key)}
     <Card.Header>
-
+  <div className="help">
+            <Example />
+          </div>
       <Accordion.Toggle as={Button} variant="link" eventKey="0">
       <Badge variant="info">Job Position</Badge>{' '}
       <Badge variant="primary"> <strong className="space">{val.resumeFor}</strong></Badge>{' '}   
@@ -110,10 +116,14 @@ componentDidMount(){
         </div> */}
    {/* <p>{console.log(this.state.data.length)}</p> */}
    <div className="showBio">
-    <img src={val.url || "https://via.placeholder.com/150.png/09f/fff%20C/O%20https://placeholder.com/"} alt ="Uploaded Resume" height="100" width= "100" />
+     <a href = {val.url} download>
+     <Button variant="outline-primary">View Bio</Button>
+     <img src={val.url || "https://via.placeholder.com/150.png/09f/fff%20C/O%20https://placeholder.com/"} alt ="Uploaded Resume" height="100" width= "100" />
+     </a>
+    
     
    </div>
-   <Button value={ key } onClick={(e) =>this.delete(`${e}`)} variant="danger">Danger</Button> <Button variant="info">Info</Button>{' '}
+   <Button value={key} onClick={(i) =>this.delete(val) }variant="danger">Received</Button> 
         </Card.Body>
     
     </Accordion.Collapse>

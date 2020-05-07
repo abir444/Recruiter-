@@ -2,14 +2,18 @@ import React, { Component, useState } from 'react';
 import './App.css';
 import '../config';
 import * as firebase from 'firebase';
-import { Form, Card, Accordion, Alert, Modal, Tab, Nav, Row, Button, Col, Badge, Popover, OverlayTrigger } from "react-bootstrap";
+import { Form, Card, Accordion, Alert,ProgressBar, Modal, Tab, Nav, Row, Button, Col, Badge, Popover, OverlayTrigger } from "react-bootstrap";
 import NavBar from './NavBar';
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import Validation from './Validation';
 import CareerNav from './CareerNav';
 import { wait } from '@testing-library/react';
 
-
+const completeStatus = () => (
+ 
+    <Badge variant="primary">Need help?</Badge>
+  
+);
 
 // main component start from here
 
@@ -29,10 +33,12 @@ export default class Career extends Component {
       loveWorkingHere: "",
       url: "",
       files: [],
-      progress : 0
+      progress : 0,
+      loading : false,
 
 
     }
+    
     // console.log(this.state.forJobTitl);
     console.log(this.state.progress)
   }
@@ -69,22 +75,8 @@ export default class Career extends Component {
 // console.log(jobArray);
 //     }
 
-
-  // event for image upload(not necessary)
-  // handleChange = () => {
-  //   this.setState({
-  //     files: files,
-  //     url : url
-  //   })
-  // }
-
   //submit button
   Submit = e => {
-
-    
-
-
-
 
     // this.state = {
     //   url: "",
@@ -97,6 +89,7 @@ export default class Career extends Component {
 
 
 
+  
 
 /// handle save
 let bucketName = "images";
@@ -109,6 +102,13 @@ uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
     const progress = Math.round((snapShot.bytesTransferred / snapShot.totalBytes) * 100)
     
     this.setState({progress});
+ 
+    this.setState({loading : true});
+      
+    setTimeout(() => {
+      this.setState({loading : false});
+    },2000)
+   
   },
   (error) => {
     alert("Something went wrong, please try again!")
@@ -129,6 +129,7 @@ uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
         url: this.state.url
       
       })
+      alert("Submitted!")
     })
   } 
 
@@ -139,17 +140,6 @@ uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
 e.preventDefault();
 
 
-  //  firebase
-  //     .database()
-  //     .ref("resume")
-  //     .push(
-  //       {
-  //       resumeFor: this.state.resumeFor,
-  //       applicantName: this.state.applicantName,
-  //       SkillsGithub: this.state.SkillsGithub,
-  //       url: this.state.url
-      
-  //     })
    
     console.log(this.progress);
     console.log(URL);
@@ -164,6 +154,7 @@ e.preventDefault();
 
 
   render() {
+    const {loading} = this.state;
     return (
 
       <div>
@@ -205,7 +196,7 @@ e.preventDefault();
 
                 </div>
                 // .....
-
+                // <ProgressBar animated now={this.state.progress}  />
                 // ......
               )
             })}
@@ -238,20 +229,28 @@ e.preventDefault();
                   </Form.Group>
                 </Form.Row>
                 <div class="file-upload-wrapper">
-                <input type="file" id="input-file-now-custom-2" class="file-upload"
+                <input type="file" id="custom-file-translate-scss" class="file-upload"
                   onChange={(e) => { this.setState({files: e.target.files}) }
                 
                 }
 
 
-                  data-height="500" />
-                 <progress value={this.state.progress} max="100"/>
-                  
+                  data-height="200" />
+ 
+
+
+
+                 {/* <progress value={this.state.progress} max="100"/> */}
+                 
               </div>
 
                 <div className="space"></div>
-                <Button variant="primary" type="submit" >
-                  Submit
+                <Button variant="primary" type="submit" disabled={loading} > 
+                  {loading && <i className="fa fa-refresh fa-spin"></i>}
+                  {loading && <span>Loading!</span>}
+
+                  {!loading && <span>Submit</span>}
+                  {/* Submit */}
         </Button>
 
               </Form>
