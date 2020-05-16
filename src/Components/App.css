@@ -22,12 +22,22 @@ nav{
   width: 100%;
 }
 
-label.logo{
+label.logo a{
   color: white;
   font-size: 35px;
   line-height: 80px;
   padding: 0 100px;
   font-weight: bold;
+  
+  
+}
+label.logo a:hover {
+  color: white;
+  font-size: 35px;
+  line-height: 80px;
+  padding: 0 100px;
+  font-weight: bold;
+  background: transparent;
 }
 
 nav ul{

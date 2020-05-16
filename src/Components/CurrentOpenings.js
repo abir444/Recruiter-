@@ -5,7 +5,7 @@ import * as firebase from 'firebase';
 import {Form,Card,Accordion,Alert,Container ,Tab,Nav, Row ,Button, Col,Badge,Popover,OverlayTrigger} from "react-bootstrap";
 import NavBar from './NavBar';
 import { BrowserRouter, Route, Link } from "react-router-dom";
-
+import swal from 'sweetalert2';
 
 // main component start from here
 
@@ -13,14 +13,22 @@ import { BrowserRouter, Route, Link } from "react-router-dom";
 
 export default class CurrentOpenings extends Component {
   ////
-  state = {
+  constructor(){
+    super();
+    this.state = {
     forJobTitl:        "",
     positionOverview:  "",
     location:          "",
     loveWorkingHere:   "",  
     deadLine:          "", 
+    url :              "",
+    checked :         false,
     data:              []
   };
+
+this.delete = this.delete.bind(this);
+}
+
 
 // componentDidMount(){
 //   firebase
@@ -35,6 +43,19 @@ export default class CurrentOpenings extends Component {
 // };
 
 
+sweetAleartFunction = () =>{
+  new swal({
+   title: "Application Deleted",
+   text: "Application has been deleted successfully ",
+   icon: "warning",
+ });
+} 
+
+delete = (i) => {
+  firebase.database().ref('profile').child(i.id).remove();
+  this.sweetAleartFunction();
+  this.componentDidMount();
+}
 
 Submit = e => {
   e.preventDefault();
@@ -78,16 +99,16 @@ componentDidMount(){
 <div className="container">
 <Alert variant="success">Current Openings!</Alert>
 <div>
-{this.state.data.map((val)=>{
+{this.state.data.map((val,key)=>{
    return (
    
-<div>
+<div id={key}>
 
   <Accordion defaultActiveKey="0">
   <Card>
     <Card.Header>
       <Accordion.Toggle as={Button} variant="link" eventKey="0">
-      <Badge variant="info">Job Position</Badge>{' '}
+      <Badge variant="info">job position</Badge>{' '}
       <Badge variant="primary"> <strong className="space">{val.forJobTitl}</strong></Badge>{' '}
        {/* <strong className="space">{val.forJobTitl}</strong> */}
        {/* <Badge variant="success" className="float-right">In Progress</Badge>{''}  */}
@@ -106,15 +127,17 @@ componentDidMount(){
         <p>{val.positionOverview}</p>
         <label><b>Why You’ll Love Working Here</b></label>
         <p>{val.loveWorkingHere}</p>
-        <Badge variant="danger" >Deadline : {val.deadLine}</Badge>{''} 
+        <Badge variant="danger" >deadline : {val.deadLine}</Badge>{''} 
         </Card.Body>
     </Accordion.Collapse>
   </Card>
   </Accordion>
+  <Button value={key} onClick={(i) =>this.delete(val)}variant="danger">Delete</Button> 
 </div>
       
    )
 })}
+
 </div>
 
 {console.log(this.state.data)}

@@ -6,12 +6,11 @@ import JobOpeningForm from './JobOpeningForm';
 import CurrentOpenings from './CurrentOpenings';
 import NavBar from './NavBar';
 import { BrowseRouter, Route } from "react-router-dom";
-
-
 import {Form,Card,Accordion,Alert,Container ,Tab,Nav, Row ,Button, Col,Badge,Popover,OverlayTrigger} from "react-bootstrap";
 import Home from './Home';
 import Career from './Career';
 import CareerNav from './CareerNav';
+import swal from 'sweetalert2';
 
 
 class Login extends Component {
@@ -19,12 +18,24 @@ class Login extends Component {
     super(props);
     this.login = this.login.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.signup = this.signup.bind(this);
+    // this.signup = this.signup.bind(this);
     this.state = {
       email: '',
       password: ''
     };
   }
+
+  sweetAleartFunction = () =>{
+    new swal({
+     title: "Wrong credentials",
+     text: "Please Enter with correct credentials",
+     icon: "error",
+   });
+ } 
+// ...........clear the text after submitting.............
+resetForm = () => {
+ document.getElementById("myForm").reset();
+ }
 
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
@@ -34,18 +45,12 @@ class Login extends Component {
     e.preventDefault();
     firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
     }).catch((error) => {
-      console.log(error);
+      this.sweetAleartFunction();
     });
   }
 
-  signup(e) {
-    e.preventDefault();
-    firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
-    }).then((u) => { console.log(u) })
-      .catch((error) => {
-        console.log(error);
-      })
-  }
+
+      
 
 ////////////////////
 
@@ -68,7 +73,7 @@ class Login extends Component {
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Password</label>
-            <input value={this.state.password} onChange={this.handleChange} type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
+            <input type="password" value={this.state.password} onChange={this.handleChange} type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
           </div>
           <button type="submit" onClick={this.login} class="btn btn-primary">Login</button>
           {/* <button onClick={this.signup} style={{ marginLeft: '25px' }} className="btn btn-success">Signup</button> */}

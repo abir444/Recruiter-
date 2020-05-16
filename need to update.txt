@@ -1,0 +1,36 @@
+1. Recruiter Navbar: on Clicking Recruiter Nav link on top-left doesn’t redirect to home page or specified page(done)
+2. Title of Position should be camelCase even if recruiter post it any case, make a function that formats it before sending it to firebase(Done)
+
+3. Format Deadline
+
+
+4. Additional content below position title, write some additional comment saying it is something to make it clear. E.g Position: Sea beach (Done)
+
+5. Also for badge used in tag make sure they are properly formatted, I would recommend it to be all lowercase, since it would be used to filter if someone clicks on it.(Done)
+
+6. Why click on tag it should filter out to similar tag, instead it closing and opening the description, which is good on the card-header but when you click tags it shouldn’t do that(Done)
+
+7. On submitting the resume your page, is submitting the resume to the firebase, in that case it shouldn’t refresh. So you can solve in two ways if you are using forms then make sure to call preventDefault on event function or handle your inputs outside the form tag(already used preventDefault, but doesn't worked)
+
+8. Members login page doesn’t show any error, when logging in with wrong credentials.(Done)
+
+9. Also, I can access the member login page with login in using the route, since those routes are not secured
+
+10. When creating a new job post few things that need to be worked on:
+ 1) Position overview should be a text area rather than input since it would have more lines.(Done)
+ 2) Make sure to create a function that run on the content to check if there is any link and it is there then place it inside the a tag so that user can click on it.(not properly done) 
+3) On submitting the new job post it doesn’t give any feedback to show the recruiter that job has been posted. (Done)
+4) Also, after submitting make sure the fields are cleared. (Done)
+
+11. Change the name of New Openings to Post a Opening/Post a Job/Post a new opening, so that it is certain that the link it to post something (Done)
+
+12. There is a new member link ins the members login which isn’t useful since if user is already logged in, then he won’t be creating another one. This option should be outside for anyone to signup as job poster.
+13. When creating a new member, same issues, it doesn’t give feedback whether it was wrong email id format or weak password, or the login has been created or the login id already exist. Since firebase always sends your the information you can use it to show to user, at the same time you can create field level validation to validate things before even sending it to firebase for eg. Look if email id format is right password is strong. For that you can use input as type email and password and also create a password checker function to see if the password is strong and then send it to firebase. After that any issue that come from firebase like duplicate id or something you can display to the user.
+14. No password visibility for both login and signup(done)
+15. Once I signup no feedback id is created and I would suggest if you route the user to the members pages once the credentials are stored in firebase and you get a success.
+16. There is no way to delete a Jon Position
+
+17. No indicator to show if the openings are loading, so what you can do is create a loading icon or something that would display when the application is loading from firebase
+    1. On Preview Applications: 1) Don’t see the name of the person who applied, position he applied for, 2) Delete button is named Received change it to delete, also after delete make sure the list is updated
+18. While submitting you resume, no validation to show if user is doing something wrong
+19. Finally there is CORB issue, if you can solve it that would be great as well. Read more about it here: https://www.chromium.org/Home/chromium-security/corb-for-developers

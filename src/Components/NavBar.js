@@ -60,9 +60,9 @@ export default class NavBar extends Component {
 
 <ul>
     <nav>
-    <label className="logo">Recruiter</label>
+    <label className="logo"><a href='/'>Recruiter</a></label>
     <ul>
-      <li><a href="./JobOpeningForm" className="active">New Openings</a></li>
+      <li><a href="./JobOpeningForm" className="active">Post a Job</a></li>
       <li><a href="./CurrentOpenings">Current Openings</a></li>
       <li><a href="./PreviewApplicants">Preview Applicants<strong><Badge pill variant="danger" >  {this.state.data.length}</Badge>{''}</strong></a></li>
       <li><a href="./Signup">New member !</a></li>

@@ -6,7 +6,7 @@ import {Form,Card,Accordion,Alert,Container ,Tab,Nav, Row ,Button, Col,Badge,Pop
 import NavBar from './NavBar';
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import Switch from "react-switch";
-
+import swal from 'sweetalert2';
 // main component start from here
 
 const popover = (
@@ -19,7 +19,7 @@ const popover = (
 );
 const Example = () => (
   <OverlayTrigger trigger="click" placement="left" overlay={popover}>
-    <Badge variant="primary">Need help?</Badge>
+    <Badge variant="primary">need help?</Badge>
   </OverlayTrigger>
 );
 
@@ -38,13 +38,10 @@ export default class PreviewApplicants extends Component {
     checked :         false,
     data:              []
   };
-this.handleCheck = this.handleCheck.bind(this);
+
 this.delete = this.delete.bind(this);
 }
 
-handleCheck(checked){
-  this.setState({checked});
-}
 
 componentDidMount(){
   var list = [];
@@ -64,14 +61,19 @@ componentDidMount(){
   })
 }
 
-/////////////// ??????????????????????
 
-
-// }
-///////////////////////
+sweetAleartFunction = () =>{
+  new swal({
+   title: "Application Deleted",
+   text: "Application has been deleted successfully ",
+   icon: "warning",
+ });
+} 
 
   delete = (i) => {
     firebase.database().ref('resume').child(i.id).remove();
+    this.sweetAleartFunction();
+    this.componentDidMount();
   }
 
 
@@ -94,22 +96,27 @@ componentDidMount(){
   <Accordion defaultActiveKey="0">
   <Card>
 {console.log(key)}
-    <Card.Header>
+    {/* <Card.Header> */}
   <div className="help">
-            <Example />
+            {/* <Example /> */}
           </div>
-      <Accordion.Toggle as={Button} variant="link" eventKey="0">
-      <Badge variant="info">Job Position</Badge>{' '}
-      <Badge variant="primary"> <strong className="space">{val.resumeFor}</strong></Badge>{' '}   
+      {/* <Accordion.Toggle as={Button} variant="link" eventKey="0"> */}
+      <Alert variant="info">Position  <strong>{val.resumeFor}</strong></Alert>
+      {/* <Badge variant="info">Position</Badge>{' '} */}
+      {/* <Badge variant="primary"> <strong className="space">{val.resumeFor}</strong></Badge>{' '}    */}
    
-    </Accordion.Toggle>
-    </Card.Header>
+    {/* </Accordion.Toggle> */}
+    {/* </Card.Header> */}
     
     <Accordion.Collapse eventKey="0">
       <Card.Body>
-      <h1><strong>{val.applicantName}</strong></h1>
-        <label><b>Skills and Github Link</b></label>
-        <p>{val.SkillsGithub}</p>
+      <label>Applicant's Name</label><h4><strong>{val.applicantName}</strong></h4>
+      
+        <p><strong>Skills : {val.Skills}</strong></p>
+
+        <label><b>Github/Protfolio</b></label>
+       <a href={val.GithubLink}>   {val.GithubLink}</a>
+       <br></br>
         {/* show the pdf */}
         {/* <div>
           <img src={`${val.url}`}
@@ -123,7 +130,8 @@ componentDidMount(){
     
     
    </div>
-   <Button value={key} onClick={(i) =>this.delete(val) }variant="danger">Received</Button> 
+   <br></br>
+   <Button value={key} onClick={(i) =>this.delete(val) }variant="danger">Delete</Button> 
         </Card.Body>
     
     </Accordion.Collapse>

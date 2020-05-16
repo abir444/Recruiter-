@@ -8,11 +8,21 @@ import { BrowserRouter, Route, Link } from "react-router-dom";
 import Validation from './Validation';
 import CareerNav from './CareerNav';
 import { wait } from '@testing-library/react';
+import swal from 'sweetalert2';
 
-const completeStatus = () => (
- 
-    <Badge variant="primary">Need help?</Badge>
-  
+
+const popover = (
+  <Popover id="popover-basic">
+    <Popover.Title as="h1">Fill Up the form</Popover.Title>
+    <Popover.Content>
+      Please fill up the <strong>Form</strong> below. Always double check the Requirements
+    </Popover.Content>
+  </Popover>
+);
+const Example = () => (
+  <OverlayTrigger trigger="click" placement="right" overlay={popover}>
+    <Badge variant="primary">?</Badge>
+  </OverlayTrigger>
 );
 
 // main component start from here
@@ -24,18 +34,21 @@ export default class Career extends Component {
     this.state = {
       resumeFor: "",
       applicantName: "",
-      SkillsGithub: "",
+      Skills: "",
+      GithubLink:"",
       deadLine: "",
       data: [],
       forJobTitl: "",
       positionOverview: "",
       location: "",
       loveWorkingHere: "",
+      Bio:"",
       url: "",
       files: [],
       progress : 0,
       loading : false,
-
+      additionalContent: "",
+      mustKnow: "",
 
     }
     
@@ -62,6 +75,22 @@ export default class Career extends Component {
     }
   
 
+      // ............alert after submitting...........
+  sweetAleartFunction = () =>{
+    new swal({
+     title: "Good job!",
+     text: "The job has been posted!",
+     icon: "success",
+   });
+ } 
+// ...........clear the text after submitting.............
+resetForm = () => {
+ document.getElementById("myForm").reset();
+ }
+
+
+
+
     // validation 
 //     validate = () =>{
 //       let jobArray = [];
@@ -77,19 +106,13 @@ export default class Career extends Component {
 
   //submit button
   Submit = e => {
-
+    e.preventDefault();
     // this.state = {
     //   url: "",
     // }
 
-
     // const isValid = this.validate();
     // if (isValid == true){
-
-
-
-
-  
 
 /// handle save
 let bucketName = "images";
@@ -125,22 +148,20 @@ uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
         {
         resumeFor: this.state.resumeFor,
         applicantName: this.state.applicantName,
-        SkillsGithub: this.state.SkillsGithub,
+        Skills: this.state.Skills,
+        GithubLink : this.state.GithubLink,
+        Bio: this.state.Bio,
         url: this.state.url
       
       })
-      alert("Submitted!")
+      this.sweetAleartFunction();
+      
+      e.preventDefault();
+      this.resetForm();
     })
   } 
-
-
 )
-
-
-e.preventDefault();
-
-
-   
+ 
     console.log(this.progress);
     console.log(URL);
   
@@ -172,24 +193,26 @@ e.preventDefault();
 
                   <Accordion defaultActiveKey="1">
                     <Card>
-                      <Card.Header>
-                        <Accordion.Toggle as={Button} variant="link" eventKey="1">
-                          <Badge variant="info">Job Position</Badge>{' '}
-                          <Badge variant="primary"> <strong className="space">{val.forJobTitl}</strong></Badge>{' '}
-
-                        </Accordion.Toggle>
-                      </Card.Header>
-                      <Accordion.Collapse eventKey="1">
+                      {/* <Card.Header> */}
+                       
+                          {/* <Badge variant="info">job position</Badge>{' '}
+                          <Badge variant="primary"> <strong className="space">{val.forJobTitl}</strong></Badge>{' '} */}
+                                    <Alert variant="info">Applicant must have <strong>{val.mustKnow}</strong> </Alert>
+                        
+                      {/* </Card.Header> */}
+                      {/* <Accordion.Collapse eventKey="1"> */}
                         <Card.Body>
                           <h1><strong>{val.forJobTitl}</strong></h1>
                           <h5>{val.location}</h5>
                           <label><b>Position Overview</b></label>
-                          <p>{val.positionOverview}</p>
+                          <p>{val.positionOverview }</p>
+                          <label><b>What you will do</b></label>
+                          <p>{val.additionalContent}</p>
                           <label><b>Why You’ll Love Working Here</b></label>
                           <p>{val.loveWorkingHere}</p>
-                          <Badge variant="danger" >Deadline : {val.deadLine}</Badge>{''}
+                          <Badge variant="danger" >deadline : {val.deadLine}</Badge>{''}
                         </Card.Body>
-                      </Accordion.Collapse>
+                      {/* </Accordion.Collapse> */}
                     </Card>
 
                   </Accordion>
@@ -203,31 +226,52 @@ e.preventDefault();
           </div>
           <hr />
           <div className="container2" >
+
+       
             <Card.Header>
-              <Alert variant="success">Submit Your Rsume!</Alert>
-              <Form className="form" onSubmit={(e) => this.Submit(e)}>
+            
+              <Alert variant="success">Submit Your Rsume!</Alert> 
+              <Form className="form" id="myForm" onSubmit={(e) => this.Submit(e)}>
+           
                 <Form.Row>
                   <Form.Group as={Row} controlId="forJobTitl">
-                    <Form.Label><strong>Name Of the position</strong></Form.Label>
+                    <Form.Label><strong>Name Of the position   <Example/></strong></Form.Label>
                     <Form.Control
                       onChange={e => this.setState({ resumeFor: e.target.value })} />
                   </Form.Group>
                 </Form.Row>
                 <Form.Row>
-                  <Form.Group as={Row} controlId="forJobTitl">
+                  <Form.Group as={Row} controlId="applicantName">
                     <Form.Label><strong>Full Name</strong></Form.Label>
                     <Form.Control
                       onChange={e => this.setState({ applicantName: e.target.value })} />
                   </Form.Group>
                 </Form.Row>
 
+                
 
                 <Form.Row>
-                  <Form.Group as={Row} controlId="Cover Latter">
-                    <Form.Label><strong>Skills and Github Link</strong></Form.Label>
-                    <Form.Control as="textarea" rows="3" onChange={e => this.setState({ SkillsGithub: e.target.value })} />
+                  <Form.Group as={Row} controlId="Skills">
+                    <Form.Label><strong>Skills</strong></Form.Label>
+                    <Form.Control as="textarea" rows="3" onChange={e => this.setState({ Skills: e.target.value })} />
                   </Form.Group>
                 </Form.Row>
+
+
+                <Form.Row>
+                  <Form.Group as={Row} controlId="GithubLink">
+                    <Form.Label><strong>Github/Protfolio Link</strong></Form.Label>
+                    <Form.Control as="textarea" rows="3" onChange={e => this.setState({ GithubLink: e.target.value })} />
+                  </Form.Group>
+                </Form.Row>
+
+                <Form.Row>
+                  <Form.Group as={Row} controlId="Bio">
+                    <Form.Label><strong>Short Bio</strong></Form.Label>
+                    <Form.Control as="textarea" rows="6" onChange={e => this.setState({ Bio: e.target.value })} />
+                  </Form.Group>
+                </Form.Row>
+
                 <div class="file-upload-wrapper">
                 <input type="file" id="custom-file-translate-scss" class="file-upload"
                   onChange={(e) => { this.setState({files: e.target.files}) }
@@ -252,7 +296,7 @@ e.preventDefault();
                   {!loading && <span>Submit</span>}
                   {/* Submit */}
         </Button>
-
+       
               </Form>
 
 

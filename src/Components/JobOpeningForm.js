@@ -5,14 +5,9 @@ import * as firebase from 'firebase';
 import { Form, Container, Row, Button, Col, Badge, Popover, OverlayTrigger } from "react-bootstrap";
 import NavBar from './NavBar';
 import { BrowserRouter, Route, Link } from "react-router-dom";
+import swal from 'sweetalert2';
+// import withReactContent from 'sweetalert2-react-content';
 
-// declaring state
-// state = {
-//   forJobTitl:        "",
-//   positionOverview:  "",
-//   location:          "",
-//   loveWorkingHere:   ""   
-// };
 // main component start from here
 const popover = (
   <Popover id="popover-basic">
@@ -24,30 +19,31 @@ const popover = (
 );
 const Example = () => (
   <OverlayTrigger trigger="click" placement="left" overlay={popover}>
-    <Badge variant="primary">Need help?</Badge>
+    <Badge variant="primary">need help?</Badge>
   </OverlayTrigger>
 );
 
+
+
+
 export default class JobOpeningForm extends Component {
-  ////
-  state = {
+ constructor(){
+super ();
+  this.state = {
     forJobTitl: "",
     positionOverview: "",
     location: "",
     loveWorkingHere: "",
     deadLine: "",
-    data: []
-  };
+    additionalContent: "",
+    mustKnow:"",
+    data: [],
+    visible : true,
+  }
+  // this.sweetAleartFunction =  this.sweetAleartFunction.bind(this);
+}
 
-
-  // firebase
-  // .database()
-  // .ref("profile")
-  // .push({
-  //   forJobTitl:        "sample title",
-  //   positionOverview:  "sample position",
-  //   location:          "sample location",
-  //   loveWorkingHere:   "sample detail"   
+  
   componentDidMount() {
     firebase
       .database()
@@ -59,23 +55,84 @@ export default class JobOpeningForm extends Component {
             id: item.key, ...item.val()
           });
         })
+
       })
   }
-  Submit = e => {
+  // ............alert after submitting...........
+  sweetAleartFunction = () =>{
+     new swal({
+      title: "Good job!",
+      text: "The job has been posted!",
+      icon: "success",
+    });
+  } 
+// ...........clear the text after submitting.............
+ resetForm = () => {
+  document.getElementById("myForm").reset();
+  }
 
-    e.preventDefault();
+
+
+clear = (e) =>{
+  this.setState({
+    forJobTitl: "",
+    positionOverview: "",
+    location: "",
+    loveWorkingHere: "",
+    deadLine: "",
+    additionalContent: "",
+    mustKnow:"",
+    data: "",
+    
+  }
+  
+  );
+  
+}
+
+  Submit = e => {
+let title = this.state.forJobTitl;
+
+// ...camelCase function...
+function camelize(str) {
+  return str.replace(/\W+(.)/g, function(match, chr)
+   {
+        return chr.toUpperCase();
+    });
+}
+///////////
+
+
+// ....check for URL....
+let link = this.state.positionOverview;
+function urlify(link) {
+  var urlRegex = /(https?:\/\/[^\s]+)/g;
+  return link.replace(urlRegex, function(url) {
+    return '<a href="' + url + '">' + url + '</a>';
+  })
+}
+
     firebase
       .database()
       .ref("profile")
       .push({
-        forJobTitl: this.state.forJobTitl,
-        positionOverview: this.state.positionOverview,
+        forJobTitl: camelize(title),
+        positionOverview: urlify(link),
         location: this.state.location,
         loveWorkingHere: this.state.loveWorkingHere,
-        deadLine: this.state.deadLine
-
-      });
+        deadLine: this.state.deadLine,
+        additionalContent: this.state.additionalContent,
+        mustKnow: this.state.mustKnow,
+        
+      });     
+      this.sweetAleartFunction();
+      
+      e.preventDefault();
+      this.resetForm();
+     
   };
+
+
   /////
 
   render() {
@@ -86,13 +143,13 @@ export default class JobOpeningForm extends Component {
 
         <div className="container">
 
-          <Badge variant="primary">Post a new Position</Badge>{' '}
+          <Badge variant="primary">post a new position</Badge>{' '}
           <div className="help">
-            <Example />
+            <Example />          
           </div>
           {console.log(this.state)}
           <hr />
-          <Form className="form" onSubmit={(e) => this.Submit(e)}>
+          <Form className="form" id="myForm"  onSubmit={(e) => this.Submit(e)} defaultValue="Reset">
             <Form.Row>
               <Form.Group as={Row} controlId="forJobTitl">
                 <Form.Label><strong>Job Title</strong></Form.Label>
@@ -103,9 +160,24 @@ export default class JobOpeningForm extends Component {
             <Form.Row>
               <Form.Group as={Row} controlId="positionOverview">
                 <Form.Label><strong>Position Overview</strong></Form.Label>
-                <Form.Control onChange={e => this.setState({ positionOverview: e.target.value })} />
+                <Form.Control as="textarea"  placeholder="Position details" onChange={e => this.setState({ positionOverview: e.target.value })} />
               </Form.Group>
             </Form.Row>
+
+            <Form.Row>
+              <Form.Group as={Row} controlId="mustKnow">
+                <Form.Label><strong>Must have skills</strong></Form.Label>
+                <Form.Control placeholder="e.g react,firebase..skills/experience " onChange={e => this.setState({ mustKnow: e.target.value })} />
+              </Form.Group>
+            </Form.Row>
+
+            <Form.Row>
+              <Form.Group as={Row} controlId="additionalContent">
+                <Form.Label><strong>Work Responsibilities</strong></Form.Label>
+                <Form.Control placeholder="What suppose to do by the employee" onChange={e => this.setState({ additionalContent: e.target.value })} />
+              </Form.Group>
+            </Form.Row>
+
             <Form.Row>
               <Form.Group as={Row} controlId="location">
                 <Form.Label><strong>Location</strong></Form.Label>
@@ -129,13 +201,14 @@ export default class JobOpeningForm extends Component {
             <Form.Row>
               <Form.Group as={Row} controlId="deadLine">
                 <Form.Label>Mention the dead line.</Form.Label>
-                <Form.Control type="date" rows="3" onChange={e => this.setState({ deadLine: e.target.value })} />
+                <Form.Control type="date" rows="3" data-date-format="MM/DD/YYYY"
+                 onChange={e => this.setState({ deadLine: e.target.value })} />
               </Form.Group>
 
             </Form.Row>
 
 
-            <Button variant="primary" type="submit">
+            <Button variant="primary" type="submit"  >
               Submit
         </Button>
             {/* {console.log(this.state.data)} */}

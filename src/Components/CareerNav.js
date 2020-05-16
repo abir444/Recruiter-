@@ -28,11 +28,10 @@ export default class CareerNav extends Component {
 
 <ul>
     <nav>
-    <label className="logo">Recruiter</label>
+    <label className="logo"><a href='/'>Recruiter</a></label>
     <ul>
       <li><a href="./App" className="active">Members Login</a></li>
       <li><a href="/" className="active">Career Page</a></li>
-      
       
     </ul>
   </nav>
