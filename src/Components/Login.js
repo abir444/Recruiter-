@@ -13,6 +13,7 @@ import CareerNav from './CareerNav';
 import swal from 'sweetalert2';
 
 
+
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -21,17 +22,28 @@ class Login extends Component {
     // this.signup = this.signup.bind(this);
     this.state = {
       email: '',
-      password: ''
+      emailErr:"",
+      password: '',
+      passwordErr:''
     };
   }
 
-  sweetAleartFunction = () =>{
+  sweetAleartFunctionN = () =>{
     new swal({
      title: "Wrong credentials",
      text: "Please Enter with correct credentials",
      icon: "error",
    });
  } 
+
+
+ sweetAleartFunctionP = () =>{
+  new swal({
+   title: "You're in!",
+   text: "Welcome!",
+   icon: "success",
+ });
+} 
 // ...........clear the text after submitting.............
 resetForm = () => {
  document.getElementById("myForm").reset();
@@ -44,8 +56,9 @@ resetForm = () => {
   login(e) {
     e.preventDefault();
     firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
+      this.sweetAleartFunctionP();
     }).catch((error) => {
-      this.sweetAleartFunction();
+      this.sweetAleartFunctionN();
     });
   }
 
@@ -65,10 +78,11 @@ resetForm = () => {
         
 
   <Card.Header>
-  <form>
+  <form >
           <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
             <input value={this.state.email} onChange={this.handleChange} type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
+
             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
           </div>
           <div class="form-group">
