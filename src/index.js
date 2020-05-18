@@ -31,6 +31,7 @@ const routing = (
         </li>
       </ul> */}
       <Route exact path="/" component={Career} />
+      {/* //// need to check logged in or not */}
       <Route exact path="/App" component={App} />
       <Route path="/JobOpeningForm" component={JobOpeningForm} />
       <Route path="/Signup" component={Signup} />

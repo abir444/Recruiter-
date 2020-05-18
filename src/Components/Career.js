@@ -9,6 +9,8 @@ import Validation from './Validation';
 import CareerNav from './CareerNav';
 import { wait } from '@testing-library/react';
 import swal from 'sweetalert2';
+import {CuberGrid} from "styled-loaders-react";
+import styled from 'styled-components';
 
 
 const popover = (
@@ -49,15 +51,21 @@ export default class Career extends Component {
       loading : false,
       additionalContent: "",
       mustKnow: "",
+      load : true,
 
     }
     
-    // console.log(this.state.forJobTitl);
-    console.log(this.state.progress)
   }
 
     //get data to the web page
     componentDidMount() {
+
+      setTimeout(() =>{
+        this.setState({
+          load:false
+        })
+      },3000)
+
       var list = [];
       firebase
         .database()
@@ -78,8 +86,8 @@ export default class Career extends Component {
       // ............alert after submitting...........
   sweetAleartFunction = () =>{
     new swal({
-     title: "Good job!",
-     text: "The job has been posted!",
+     title: "cheers!",
+     text: "Your application submitted successfully ",
      icon: "success",
    });
  } 
@@ -176,14 +184,18 @@ uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
 
   render() {
     const {loading} = this.state;
+    const {load} = this.state;////////////// not working
+    // {this.state.load ? <CuberGrid color="black" /> :  }
     return (
 
-      <div>
+      <div >
 
         <CareerNav />
         
-        <div className="container">
+        {load}
       
+        <div className="container">
+        
           <Alert variant="success">Current Openings!</Alert>
           <div>
             {this.state.data.map((val) => {
@@ -302,9 +314,13 @@ uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
 
             </Card.Header>
           </div>
+      
         </div>
-      </div>
-
-    )
   }
+      </div>
+              
+    )
+              
+  }
+  
 }

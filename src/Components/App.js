@@ -8,10 +8,12 @@ import Login from './Login';
 import NavBar from './NavBar';
 import { BrowseRouter, Route } from "react-router-dom";
 
-
-import { Form, Container, Row, Col } from "react-bootstrap";
+import {CuberGrid} from "styled-loaders-react";
+import styled from 'styled-components';
+import { Form, Container, Row, Col, ThemeProvider } from "react-bootstrap";
 import Home from './Home';
 import CareerNav from './CareerNav';
+import Career from './Career';
 
 export default class App extends Component {
   constructor() {
@@ -26,6 +28,10 @@ export default class App extends Component {
     this.authListener();
   }
 
+// isLoggedIn(){
+//   this.state.user;
+// }
+
   authListener() {
     firebase.auth().onAuthStateChanged((user) => {
       console.log(user);
@@ -39,8 +45,6 @@ export default class App extends Component {
     });
   }
 
-
-
   render() {
     return (
 
@@ -50,7 +54,8 @@ export default class App extends Component {
         
         <div>
           {/* <Home /> */}
-          {this.state.user ? (<Home />) : (<Login />)}
+          {this.state.user ? (<Home  />) : (<Login />)}
+         
           {/* <JobOpeningForm triggerJobOpeningForm={this.Submit}/> it is working */}
         </div>
       </div>

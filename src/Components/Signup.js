@@ -26,6 +26,11 @@ class Signup extends Component {
     };
   }
 
+  resetForm = () => {
+    document.getElementById("myForm").reset();
+    }
+
+
   sweetAleartFunctionN = () =>{
     new swal({
      title: "Something wrong",
@@ -37,7 +42,7 @@ class Signup extends Component {
  sweetAleartFunctionP = () =>{
   new swal({
    title: "New user created",
-   text: "Success!",
+   text: this.state.email,
    icon: "success",
  });
 } 
@@ -52,6 +57,8 @@ class Signup extends Component {
     
     firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
    this.sweetAleartFunctionP();
+   e.preventDefault();
+   this.resetForm();
     }).then((u) => { console.log(u) })
       .catch((error) => {
         this.sweetAleartFunctionN();
