@@ -73,22 +73,7 @@ super ();
 
 
 
-clear = (e) =>{
-  this.setState({
-    forJobTitl: "",
-    positionOverview: "",
-    location: "",
-    loveWorkingHere: "",
-    deadLine: "",
-    additionalContent: "",
-    mustKnow:"",
-    data: "",
-    
-  }
-  
-  );
-  
-}
+
 
   Submit = e => {
 let title = this.state.forJobTitl;
@@ -101,6 +86,16 @@ function camelize(str) {
     });
 }
 ///////////
+var mydate = new Date(this.state.deadLine);
+function dateFormat(){
+ let ok= mydate.getDate()+"."+ mydate.getMonth()+"."+mydate.getFullYear();
+  return ok;
+
+
+}
+
+
+
 
 
 // ....check for URL....
@@ -120,7 +115,7 @@ function urlify(link) {
         positionOverview: urlify(link),
         location: this.state.location,
         loveWorkingHere: this.state.loveWorkingHere,
-        deadLine: this.state.deadLine,
+        deadLine: dateFormat(mydate),
         additionalContent: this.state.additionalContent,
         mustKnow: this.state.mustKnow,
         
@@ -201,7 +196,7 @@ function urlify(link) {
             <Form.Row>
               <Form.Group as={Row} controlId="deadLine">
                 <Form.Label>Mention the dead line.</Form.Label>
-                <Form.Control type="date" rows="3" data-date-format="MM/DD/YYYY"
+                <Form.Control id="dateF" type="date" rows="3" data-date-format="MM/DD/YYYY"
                  onChange={e => this.setState({ deadLine: e.target.value })} />
               </Form.Group>
 
