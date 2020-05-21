@@ -2,7 +2,7 @@ import React, { Component, useState } from 'react';
 import './App.css';
 import '../config';
 import * as firebase from 'firebase';
-import { Form, Card, Accordion, Alert,ProgressBar, Modal, Tab, Nav, Row, Button, Col, Badge, Popover, OverlayTrigger } from "react-bootstrap";
+import { Form, Card, Accordion, Alert,Spinner, Modal, Tab, Nav, Row, Button, Col, Badge, Popover, OverlayTrigger } from "react-bootstrap";
 import NavBar from './NavBar';
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import Validation from './Validation';
@@ -57,6 +57,7 @@ export default class Career extends Component {
     
   }
 
+
     //get data to the web page
     componentDidMount() {
 
@@ -96,7 +97,9 @@ resetForm = () => {
  document.getElementById("myForm").reset();
  }
 
-
+spinner = () =>{
+  return <div className="spinner"><Spinner animation="grow" variant="danger" /><Spinner animation="grow" variant="warning" /><Spinner animation="grow" variant="info" /><Spinner animation="grow" variant="primary" /></div> 
+}
 
 
     // validation 
@@ -185,15 +188,13 @@ uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
   render() {
     const {loading} = this.state;
     const {load} = this.state;////////////// not working
-    // {this.state.load ? <CuberGrid color="black" /> :  }
+    
+     if(this.state.load) return this.spinner();
     return (
-
       <div >
 
         <CareerNav />
         
-        {load}
-      
         <div className="container">
         
           <Alert variant="success">Current Openings!</Alert>
