@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import '../config';
 import * as firebase from 'firebase';
-import { Form, Container, Row, Button, Col, Badge, Popover, OverlayTrigger } from "react-bootstrap";
+import { Form, Row, Button, Badge, Popover, OverlayTrigger } from "react-bootstrap";
 import NavBar from './NavBar';
-import { BrowserRouter, Route, Link } from "react-router-dom";
 import swal from 'sweetalert2';
 // import withReactContent from 'sweetalert2-react-content';
 

@@ -2,18 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './Components/App';
-import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import JobOpeningForm from './Components/JobOpeningForm';
-import NavBar from './Components/NavBar';
 import CurrentOpenings from './Components/CurrentOpenings';
 import Signup from './Components/Signup';
 import PreviewApplicants from './Components/PreviewApplicants';
 import Career from './Components/Career';
 import {  Route, Link,Router, BrowserRouter } from "react-router-dom";
-import Login from './Components/Login';
-import Home from './Components/Home';
-
 
 
 const routing = (

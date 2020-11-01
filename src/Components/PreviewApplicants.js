@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import './App.css';
 import '../config';
 import * as firebase from 'firebase';
-import {Form,Card,Accordion,Alert,Container ,Tab,Nav, Row ,Button, Col,Badge,Popover,OverlayTrigger} from "react-bootstrap";
+import {Card,Accordion,Alert, Row ,Button, Col,Badge,Popover,OverlayTrigger} from "react-bootstrap";
 import NavBar from './NavBar';
-import { BrowserRouter, Route, Link } from "react-router-dom";
-import Switch from "react-switch";
+
 import swal from 'sweetalert2';
 // main component start from here
 

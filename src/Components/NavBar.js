@@ -2,11 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import '../config';
 import * as firebase from 'firebase';
-import {Form,Container , Row ,Button, Col,Badge,Popover,OverlayTrigger} from "react-bootstrap";
-import CurrentOpenings from './CurrentOpenings';
-import JobOpeningForm from './JobOpeningForm';
-import App from './App';
-import { BrowserRouter, Route, Link, Router } from "react-router-dom";
+import {Badge} from "react-bootstrap";
+
 
 export default class NavBar extends Component {
 
